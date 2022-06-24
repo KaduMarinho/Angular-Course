@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+	.w3-dropdown-hover:hover .w3-dropdown-content{display:inline-block !important}<!--div "az za" ao lado do seu respectivo link mediante hover-->
+</style>
+<body>
+
+<script>
+
+</script>
+
+<div ng-app="myShoppingList" ng-cloak ng-controller="myCtrl" class="w3-card-2 w3-margin" style="max-width:400px;">
+  <header class="w3-container w3-light-grey w3-padding-16"> 	
+	<div class="w3-dropdown-" style="display: inline-block">
+		<button id="optBtn" onclick="showOpt()" style="padding-bottom: 30% !important; transform: rotate(-90deg)" class="w3-btn w3-green w3-topright w3-center w3-padding" title="Mais opções">...</button>
+		<div id="opt" class="w3-dropdown-content w3-bar-block w3-border">
+		  <a ng-click="showModal('lnkrn')" class="w3-bar-item w3-button">Renomear lista</a>
+		  <div class="w3-dropdown-hover">
+			<a id="teste" class="w3-bar-item w3-button" style="display: inline-block">Ordenar lista</a>
+				<div class="w3-dropdown-content w3-bar-block w3-border">
+				  <a ng-click="sortList('lnkaz')" class="w3-bar-item w3-button">A-Z</a>
+				  <a ng-click="sortList('lnkza')" class="w3-bar-item w3-button">Z-A</a> 			 
+				</div>			
+		  </div>
+		  <a ng-click="showModal('lnklp')" class="w3-bar-item w3-button">Limpar lista</a>      
+		</div>
+	</div>	
+	<h3 style="display: inline-block">{{nomeLista}}</h3>
+  </header>
+  <!--Modal renomear lista-->	 
+
+  <div id="renomear" class="w3-modal w3-animate-opacity">
+    <div class="w3-modal-content w3-card-4" style="width: 80% !important">
+      <header class="w3-container w3-green"> 
+        <span ng-click="showModal('spnfch')" 
+        class="w3-button w3-large w3-display-topright">&times;</span>
+        <h2>Renomear Lista de Compras</h2>
+      </header>
+	  <br>
+	  <div class="w3-container">
+		<form name="modalNome">
+		  <div class="w3-col s10">			
+			<input placeholder="Digite um novo nome para a lista" ng-model="newNameList" class="w3-input w3-border w3-padding" maxlength="25">
+		  </div>
+		  <div class="w3-col s2" style="width: inherit !important">
+			<button ng-click="rnmLista()" class="w3-btn w3-padding w3-green">Renomear</button>
+		  </div>		  
+		 </form>
+		 <p ng-show="newNameList.length == 25" class="w3-text-red w3-col s10">{{errormaxlength}}</p>
+      </div>	  
+	  <br>
+      <footer class="w3-container w3-green">
+        <p></p>
+      </footer>
+    </div>
+  </div>
+  <!--Modal limpar lista-->
+  <div id="limpar" class="w3-modal w3-animate-opacity">
+    <div class="w3-modal-content w3-card-4" style="width: 80% !important">
+      <header class="w3-container w3-green"> 
+        <span ng-click="showModal('spnfch2')" 
+        class="w3-button w3-large w3-display-topright">&times;</span>
+        <h2>Limpar Lista</h2>
+      </header>
+	  <br>
+	  <div class="w3-container">
+		<form name="modalLimpar">
+		  <p>Você deseja limpar todos os itens da lista "{{nomeLista}}"?</p>
+		  <div>
+			  <div class="w3-col s2" >
+				<button ng-click="showModal('spnfch2')" class="w3-btn w3-padding w3-black">Cancelar</button>
+			  </div>
+			   <div class="w3-col s2">
+				<button ng-click="lmpLista()" class="w3-btn w3-padding w3-red">Limpar</button>
+			  </div>
+		  </div>
+		 </form>
+      </div>
+	  <br>
+      <footer class="w3-container w3-green">
+        <p></p>
+      </footer>
+    </div>
+  </div>
+  <!--Modal-->
+  <ul class="w3-ul">
+    <li ng-repeat="x in products" class="w3-padding-16">{{x}}<span ng-click="removeItem($index)" style="cursor:pointer;" class="w3-right w3-margin-right">×</span></li>
+  </ul>
+  <div class="w3-container w3-light-grey w3-padding-16">
+    <div class="w3-row w3-margin-top">
+	  <form name="formLista">
+		  <div class="w3-col s10">
+			<input placeholder="Adicione itens aqui" ng-model="addMe" class="w3-input w3-border w3-padding">
+		  </div>
+		  <div class="w3-col s2">
+			<button ng-click="addItem()" class="w3-btn w3-padding w3-green">Add</button>
+		  </div>
+	  </form>
+    </div>
+    <p class="w3-text-red">{{errortext}}</p>
+  </div>
+</div>
+
+<script src="includes/js/app.js"></script>
+<script src="includes/js/controller.js"></script>
+</body>
+</html>
